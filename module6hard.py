@@ -5,6 +5,7 @@ class Figure:
     sides_count = 0
 
     def __init__(self, color, *sides):
+        self.filled = True
         self.__color = []
         self.__sides = []
         for i in color:
@@ -17,19 +18,17 @@ class Figure:
             self.__sides += [1] * self.sides_count
         else:
             self.__sides.extend(sides)
-        self.filled = True
-        # print(self.__dict__)
 
     def get_color(self):
         return self.__color
 
     def __is_valid_color(self, *rgb):
-        __is_valid = True
+        __isvalid = True
         for i in rgb:
             if i not in range(256):
-                __is_valid = False
+                __isvalid = False
                 break
-        return __is_valid
+        return __isvalid
 
     def set_color(self, r, g, b):
         if self.__is_valid_color(r, g, b):
@@ -39,12 +38,12 @@ class Figure:
         return self.__sides
 
     def __is_valid_sides(self, *args):
-        __is_valid = False
+        __isvalid = False
         if len(args) == self.sides_count:
             for i in args:
                 if isinstance(i, int) and i > 0:
-                    __is_valid = True
-        return __is_valid
+                    __isvalid = True
+        return __isvalid
 
     def set_sides(self, *new_sides):
         if isinstance(self, Cube):
@@ -59,14 +58,13 @@ class Figure:
 
 class Circle(Figure):
     sides_count = 1
-    __radius = None
 
     def __init__(self, color, *sides):
         super().__init__(color, *sides)
+        self.__radius = super().__len__() / (2 * pi)
 
     def get_square(self):
-        __radius = super().__len__() / (2 * pi)
-        return round(__radius ** 2 * pi, 2)
+        return round(self.__radius ** 2 * pi, 2)
 
 
 class Triangle(Figure):
